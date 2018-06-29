@@ -1,0 +1,136 @@
+*, 
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: left;
+  margin: 0 20px;
+}
+
+.bar-chart {
+  width: 70%;
+  padding: 0;
+}
+
+.bar-chart li {
+  width: 100%;
+  display: flex;
+  margin: 10px 0 0 0;
+  align-content: center;
+}
+
+.tooltip {
+  position: relative;
+  display: inline;
+  right: -15px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.tooltip .data-container {
+  top: -70%;
+  width: 145px;
+  position: absolute;
+  display: block;
+  border-radius: 10px;
+  background: #FEFEFE;
+  border: 2px solid #6D6D6D;
+  padding: 0 10px;
+  margin-top: 10px;
+}
+
+.tooltip .data-container:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -12px;
+  width: 0; height: 0;
+  border-right: 16px solid #6D6D6D;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+}
+
+.tooltip .data-container:after {
+  content: '';
+  transform: scale(1.2, 1.2);
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -8px;
+  width: 0; height: 0;
+  border-right: 12px solid #FFFFFF;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.tooltip .tooltip--price {
+
+}
+
+.tooltip .tooltip--market-cap {
+
+}
+
+.bar-chart li:hover .tooltip {
+  opacity: 1;
+}
+
+.bar-chart li .check-box {
+  -webkit-appearance: none;
+	background-color: #fafafa;
+	border: 1px solid #4a5858;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05);
+	padding: 9px;
+	display: inline-block;
+	position: relative;
+}
+
+.bar-chart li .check-box:after {
+  content: '';
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #707070;
+}
+
+.bar-chart li .check-box:checked:after {
+	content: '\2714';
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	color: #707070;
+}
+
+.bar-chart li .company-name {
+  width: 100px;
+  display: inline-block;
+  text-align: right;
+  line-height: 150%;
+  flex-shrink: 0;
+}
+
+.bar-chart li .bar {
+  background-color: #4dd578;
+  display: inline-block;
+  list-style-type: none;
+  transition: width;
+  border-left: solid 1px rgb(29, 29, 29);
+}
+
+
+
+/* @keyframes grow {
+  0% {
+    width: 0;
+  }
+
+  100% {
+
+  }
+} */

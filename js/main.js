@@ -42,7 +42,7 @@
          * @return {Array} - An array of checkbox elements that are currently checked
          * If there are no currently checked checkboxes then the array will be of length 0;
          */
-        fetchCheckboxes() {
+        fetchSelectedCheckboxes() {
             let checkBoxes = this.fetchAllCheckboxes();
             if (checkBoxes.length > 0) {
                 checkBoxes = [...checkBoxes];
@@ -52,12 +52,55 @@
             return [];
         }
 
+        getNumberSelected(selectedCheckboxes) {
+            return selectedCheckboxes.length;
+        }
+
+        /**
+         * Get the total price of all selected stocks
+         */
+        getTotalPrice(selectedCheckboxes) {
+            if (selectedCheckboxes.length === 1) {
+                return selectedCheckboxes[0].parentElement.data.price;
+            } else if (selectedCheckboxes.length > 1) {
+                return selectedCheckboxes.reduce((total, checkbox) => {
+                    if (typeof(checkbox.parentElement.data.price) !== "number") {
+                        throw new Error(`getAveragePrice has an invalid checkbox data price of ${checkbox.data.price}`);
+                    }
+    
+                    if (typeof(total) !== "number") {total = total.parentElement.data.price;}
+                    return total + checkbox.parentElement.data.price;
+                });
+            } else {
+                return 0;
+            }
+        }
+
+
+        /**
+         * Get the average price of all selected stocks
+         */
+        getAveragePrice(selectedCheckboxes) {
+            let totalPrice = this.getTotalPrice(selectedCheckboxes);
+            if (selectedCheckboxes.length <= 0) {return 0;}
+
+            return totalPrice / selectedCheckboxes.length;
+        }
+
+        /**
+         * Get the average price of all selected stocks
+         */
+
         getHighestPriceStock() {
 
         }
 
         update() {
-            console.log(this.fetchCheckboxes());
+
+            let selectedCheckboxes = this.fetchSelectedCheckboxes();
+            console.log(this.getNumberSelected(selectedCheckboxes));
+            console.log(this.getTotalPrice(selectedCheckboxes));
+            console.log(this.getAveragePrice(selectedCheckboxes));
         }
 
 
@@ -91,11 +134,11 @@
 
         let tooltipPrice = document.createElement('div');
         tooltipPrice.classList.add('tooltip--price');
-        tooltipPrice.innerText = `Price: ${company.price}`;
+        tooltipPrice.innerText = `Price: $${company.price}`;
 
         let tooltipMarketCap = document.createElement('div');
         tooltipMarketCap.classList.add('tooltip--market-cap');
-        tooltipMarketCap.innerText = `Market Cap: $${company.marketCap}`;
+        tooltipMarketCap.innerText = `Market Cap: $${company.marketCap} Billion`;
 
         dataContainer.appendChild(tooltipPrice);
         dataContainer.appendChild(tooltipMarketCap);
@@ -137,6 +180,7 @@
             bar.setAttribute('style', `width: ${marketCapPercentage}%`);   
 
             let entryEl = document.createElement('li');
+            entryEl.data = company;
             entryEl.appendChild(checkBox);
             entryEl.appendChild(companyName);
             entryEl.appendChild(bar);
@@ -163,8 +207,6 @@
         container.appendChild(barChart);
 
         let stateTable = new StatTable();
-        
-        console.log(stateTable.fetchCheckboxes());
     }
 
 

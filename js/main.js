@@ -12,25 +12,56 @@
     ];
 
 
-    // class StatTable {
-    //     constructor() {
-    //         this.numberSelected = 0;
-    //         this.totalPrice = 0;
-    //         this.averagePrice = 0;
-    //         this.highestPriceStock = '';
-    //     }
+    class StatTable {
+        constructor() {
+            this.numberSelected = 0;
+            this.totalPrice = 0;
+            this.averagePrice = 0;
+            this.highestPriceStock = '';
 
-    //     fetchCheckboxes() {
+            this.fetchAllCheckboxes().forEach((checkBox) => {
+                checkBox.addEventListener('change', () => {
+                    this.update();
+                });
+            });
+        }
 
-    //         return 
-    //     }
+        /**
+         * An filter to check if an HTMLElement is checked. Specifically a checkbox input element.
+         * @param {HTMLElement} element 
+         */
+        filterByChecked(element) {
+            return element.checked === true;
+        }
 
-    //     getHighestPriceStock() {
+        fetchAllCheckboxes() {
+            return  document.querySelectorAll(".check-box");
+        }
 
-    //     }
+        /**
+         * @return {Array} - An array of checkbox elements that are currently checked
+         * If there are no currently checked checkboxes then the array will be of length 0;
+         */
+        fetchCheckboxes() {
+            let checkBoxes = this.fetchAllCheckboxes();
+            if (checkBoxes.length > 0) {
+                checkBoxes = [...checkBoxes];
+                return checkBoxes.filter(this.filterByChecked);
+            }
+
+            return [];
+        }
+
+        getHighestPriceStock() {
+
+        }
+
+        update() {
+            console.log(this.fetchCheckboxes());
+        }
 
 
-    // }
+    }
 
 
 
@@ -94,6 +125,7 @@
             let checkBox = document.createElement('input');
             checkBox.classList.add('check-box');
             checkBox.type = "checkbox";
+            checkBox.checked = true;
 
 
             let companyName = document.createElement('span');
@@ -128,8 +160,11 @@
         let dataDecending = data.sort(compareMarketCap).reverse();
 
         let barChart = generateBarChart(dataDecending);
-
         container.appendChild(barChart);
+
+        let stateTable = new StatTable();
+        
+        console.log(stateTable.fetchCheckboxes());
     }
 
 

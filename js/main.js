@@ -52,12 +52,17 @@
             return [];
         }
 
+        /**
+         * @param {Array} selectedCheckboxes - An array of all of the checked(selected) checkedboxes 
+         * @return {Number} - The number of currently selected checkboxes
+         */
         getNumberSelected(selectedCheckboxes) {
             return selectedCheckboxes.length;
         }
 
         /**
          * Get the total price of all selected stocks
+         * @param {Array} selectedCheckboxes - An array of all of the checked(selected) checkedboxes 
          */
         getTotalPrice(selectedCheckboxes) {
             if (selectedCheckboxes.length === 1) {
@@ -79,6 +84,7 @@
 
         /**
          * Get the average price of all selected stocks
+         * @param {Array} selectedCheckboxes - An array of all of the checked(selected) checkedboxes 
          */
         getAveragePrice(selectedCheckboxes) {
             let totalPrice = this.getTotalPrice(selectedCheckboxes);
@@ -88,11 +94,24 @@
         }
 
         /**
-         * Get the average price of all selected stocks
+         * The companies should already be sorted prior to this function call
+         * @param {Array} selectedCheckboxes - An array of all of the checked(selected) checkedboxes 
+         * @returns {String} - The name of the stock with the highest price
          */
+        getHighestPriceStock(selectedCheckboxes) {
+            let company = {
+                price: 0,
+                name: ''
+            };
 
-        getHighestPriceStock() {
+            selectedCheckboxes.forEach((checkbox) => {
+                if (checkbox.parentElement.data.price > company.price) {
+                    company.price = checkbox.parentElement.data.price;;
+                    company.name = checkbox.parentElement.data.name;
+                }
+            });
 
+            return company.name;
         }
 
         update() {
@@ -101,6 +120,7 @@
             console.log(this.getNumberSelected(selectedCheckboxes));
             console.log(this.getTotalPrice(selectedCheckboxes));
             console.log(this.getAveragePrice(selectedCheckboxes));
+            console.log(this.getHighestPriceStock(selectedCheckboxes));
         }
 
 

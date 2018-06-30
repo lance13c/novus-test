@@ -142,8 +142,6 @@
 
             this.updateTableContent();
         }
-
-
     }
 
 
@@ -193,9 +191,6 @@
      * @param {Array} data - An array of sorted object that represent company data
      */
     function generateBarChart(data) {
-        // Max bar length in percentage 
-        const maxBarLength = 80;
-
         let maxMarketCap = undefined;
 
         let barChartEl = document.createElement('ul');
@@ -203,13 +198,11 @@
 
         data.forEach((company) => {
             maxMarketCap = (!maxMarketCap) ? company.marketCap : maxMarketCap;
-            //let marketCapPercentage = company.marketCap / maxMarketCap * maxBarLength;
 
             let checkBox = document.createElement('input');
             checkBox.classList.add('check-box');
             checkBox.type = "checkbox";
             checkBox.checked = true;
-
 
             let companyName = document.createElement('span');
             companyName.classList.add('company-name');
@@ -245,10 +238,6 @@
 
         let barChart = generateBarChart(dataDecending);
         container.appendChild(barChart);
-
-        window.addEventListener('resize', (e) => {
-
-        })
 
         let stateTable = new StatTable();
     }

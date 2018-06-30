@@ -1,3 +1,14 @@
+@keyframes grow {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 *, 
 *:before,
 *:after {
@@ -124,7 +135,7 @@ body {
   background-color: #4dd578;
   display: inline-block;
   list-style-type: none;
-  transition: width;
+  animation: grow 1.2s ease;
   border-left: solid 1px rgb(29, 29, 29);
 }
 
@@ -187,13 +198,3 @@ body {
     --max-length: 80%;
   }
 }
-
-/* @keyframes grow {
-  0% {
-    width: 0;
-  }
-
-  100% {
-
-  }
-} */

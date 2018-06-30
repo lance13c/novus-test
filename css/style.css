@@ -158,6 +158,36 @@ body {
   text-align: left;
 }
 
+@media screen and (max-width: 400px) {
+  .bar-chart li .bar {
+    --max-length: 20%;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 500px) {
+  .bar-chart li .bar {
+    --max-length: 30%;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 700px) {
+  .bar-chart li .bar {
+    --max-length: 40%;
+  }
+}
+
+@media screen and (min-width: 700px) and (max-width: 900px) {
+  .bar-chart li .bar {
+    --max-length: 60%;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .bar-chart li .bar {
+    --max-length: 80%;
+  }
+}
+
 /* @keyframes grow {
   0% {
     width: 0;

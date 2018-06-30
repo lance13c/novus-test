@@ -2,7 +2,7 @@
 
 # How To Run
 
-## Easy Way
+## The Easy Way
 
 1) Open up `index.html` in a Browser.
 

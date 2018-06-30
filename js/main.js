@@ -24,6 +24,8 @@
                     this.update();
                 });
             });
+
+            this.update();
         }
 
         /**
@@ -90,7 +92,7 @@
             let totalPrice = this.getTotalPrice(selectedCheckboxes);
             if (selectedCheckboxes.length <= 0) {return 0;}
 
-            return totalPrice / selectedCheckboxes.length;
+            return Math.round((totalPrice / selectedCheckboxes.length) * 100) / 100;
         }
 
         /**
@@ -101,7 +103,7 @@
         getHighestPriceStock(selectedCheckboxes) {
             let company = {
                 price: 0,
-                name: ''
+                name: 'No Stocks Selected'
             };
 
             selectedCheckboxes.forEach((checkbox) => {
@@ -114,13 +116,31 @@
             return company.name;
         }
 
+        updateTableContent() {
+            let statTableEl = document.querySelector('.stat-table');
+
+            let colNumberSelected = document.querySelector('.stat-table__number-selected');
+            colNumberSelected.innerText = this.numberSelected;
+            
+            let colTotalPrice = document.querySelector('.stat-table__total-price');
+            colTotalPrice.innerText = `$${this.totalPrice}`;
+
+            let colAveragePrice = document.querySelector('.stat-table__average-price');
+            colAveragePrice.innerText = `$${this.averagePrice}`;
+
+            let colStockHighestPrice = document.querySelector('.stat-table__height-stock');
+            colStockHighestPrice.innerText = this.highestPriceStock;
+        }
+
         update() {
 
             let selectedCheckboxes = this.fetchSelectedCheckboxes();
-            console.log(this.getNumberSelected(selectedCheckboxes));
-            console.log(this.getTotalPrice(selectedCheckboxes));
-            console.log(this.getAveragePrice(selectedCheckboxes));
-            console.log(this.getHighestPriceStock(selectedCheckboxes));
+            this.numberSelected = this.getNumberSelected(selectedCheckboxes);
+            this.totalPrice = this.getTotalPrice(selectedCheckboxes);
+            this.averagePrice = this.getAveragePrice(selectedCheckboxes);
+            this.highestPriceStock = this.getHighestPriceStock(selectedCheckboxes);
+
+            this.updateTableContent();
         }
 
 
@@ -174,7 +194,7 @@
      */
     function generateBarChart(data) {
         // Max bar length in percentage 
-        const maxBarLength = 60;
+        const maxBarLength = 80;
 
         let maxMarketCap = undefined;
 
@@ -183,7 +203,7 @@
 
         data.forEach((company) => {
             maxMarketCap = (!maxMarketCap) ? company.marketCap : maxMarketCap;
-            let marketCapPercentage = company.marketCap / maxMarketCap * maxBarLength;
+            //let marketCapPercentage = company.marketCap / maxMarketCap * maxBarLength;
 
             let checkBox = document.createElement('input');
             checkBox.classList.add('check-box');
@@ -197,8 +217,8 @@
 
             let bar = document.createElement('span');
             bar.classList.add('bar');
-            bar.setAttribute('style', `width: ${marketCapPercentage}%`);   
-
+            bar.setAttribute('style', `--market-cap: ${company.marketCap}; 
+                                       --max-market-cap: ${maxMarketCap}`);
             let entryEl = document.createElement('li');
             entryEl.data = company;
             entryEl.appendChild(checkBox);
@@ -218,13 +238,17 @@
 
     function init() {
 
-        let container = document.querySelector('.container');
+        let container = document.querySelector('.bar-chart-container');
         
         // Creates a list of decending order data;
         let dataDecending = data.sort(compareMarketCap).reverse();
 
         let barChart = generateBarChart(dataDecending);
         container.appendChild(barChart);
+
+        window.addEventListener('resize', (e) => {
+
+        })
 
         let stateTable = new StatTable();
     }

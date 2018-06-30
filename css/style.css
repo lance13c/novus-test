@@ -6,10 +6,19 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .container {
   display: flex;
   justify-content: left;
   margin: 0 20px;
+  flex-flow: column;
+}
+
+.bar-chart-container {
+  width: 100%;
 }
 
 .bar-chart {
@@ -69,14 +78,6 @@
   border-bottom: 8px solid transparent;
 }
 
-.tooltip .tooltip--price {
-
-}
-
-.tooltip .tooltip--market-cap {
-
-}
-
 .bar-chart li:hover .tooltip {
   opacity: 1;
 }
@@ -116,6 +117,10 @@
 }
 
 .bar-chart li .bar {
+  --market-cap: 1;
+  --max-market-cap: 1;
+  --max-length: 60%;
+  width: calc(var(--market-cap) / var(--max-market-cap) * var(--max-length));
   background-color: #4dd578;
   display: inline-block;
   list-style-type: none;
@@ -123,7 +128,35 @@
   border-left: solid 1px rgb(29, 29, 29);
 }
 
+.stat-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
 
+.stat-table tr:first-child {
+  width: 60%;
+}
+
+.stat-table thead tr {
+  background-color: #aeaeae;
+}
+
+.stat-table tbody tr:nth-child(2n) {
+  background-color: #dcdcdc;
+}
+.stat-table tbody tr:nth-child(2n + 1) {
+  background-color: #f5f5f5;
+}
+
+.stat-table td {
+  border: 1px solid black;
+}
+
+.stat-table th {
+  border: 1px solid black;
+  text-align: left;
+}
 
 /* @keyframes grow {
   0% {

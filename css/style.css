@@ -89,7 +89,7 @@ body {
   border-bottom: 8px solid transparent;
 }
 
-.bar-chart li:hover .tooltip {
+.bar-chart li .bar:hover + .tooltip {
   opacity: 1;
 }
 
@@ -142,7 +142,7 @@ body {
 .stat-table {
   margin-top: 20px;
   border-collapse: collapse;
-  width: 100%;
+  width: 70%;
 }
 
 .stat-table tr:first-child {

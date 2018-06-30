@@ -16,6 +16,8 @@
 
 1) Navigate to Extensions & Download the Live Server Extension ![live_server_screen_shot](live_server.png)
 
+1) Restart Visual Studio Code
+
 1) Hit the "Go Live" Button at the bottom of the editor. ![go_live_screen_shot](go_live.png)
 
 1) The editor should then open up your default browser with the html page.

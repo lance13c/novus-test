@@ -14,7 +14,7 @@
 
 1) Go to file, open folder, and open up this folder.
 
-1) Navigate to Extentions & Download the Live Server Extention ![live_server_screen_shot](live_server.png)
+1) Navigate to Extensions & Download the Live Server Extension ![live_server_screen_shot](live_server.png)
 
 1) Hit the "Go Live" Button at the bottom of the editor. ![go_live_screen_shot](go_live.png)
 
